@@ -39,15 +39,15 @@ export default function Navbar() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="container-x flex h-[72px] items-center justify-between">
+      <nav className="container-x flex h-[88px] items-center justify-between">
         <Link href="#accueil" className="flex items-center gap-3" aria-label="AZYR Express Targa">
           <Image
             src="/images/logo.png"
             alt="Logo AZYR Express Targa"
-            width={150}
-            height={48}
+            width={220}
+            height={72}
             priority
-            className="h-16 w-auto object-contain"
+            className="h-24 w-auto object-contain"
           />
         </Link>
 

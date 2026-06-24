@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import Menu from "@/components/Menu";
 import Navbar from "@/components/Navbar";
+import PoetrySlide from "@/components/PoetrySlide";
 import Reservation from "@/components/Reservation";
 import ScrollProgress from "@/components/ScrollProgress";
 import Specialties from "@/components/Specialties";
@@ -21,6 +22,7 @@ export default function Home() {
         <About />
         <Specialties />
         <Marquee />
+        <PoetrySlide />
         <Menu />
         <Gallery />
         <WhyChoose />

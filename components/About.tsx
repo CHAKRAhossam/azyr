@@ -33,6 +33,24 @@ export default function About() {
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
           </div>
+          {/* Sceau MGHARBA flottant */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -12 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute -left-10 -top-14 grid h-44 w-44 place-items-center sm:-left-16 sm:h-52 sm:w-52"
+          >
+            {/* Disque noir limité au cercle du logo */}
+            <span className="absolute h-[67%] w-[70%] rounded-full bg-ink" />
+            <Image
+              src="/images/mgharba.png"
+              alt="MGHARBA — 100% fait maison"
+              width={120}
+              height={120}
+              className="relative h-full w-full select-none object-contain"
+            />
+          </motion.div>
           {/* Carte flottante en verre */}
           <div className="glass absolute -bottom-6 -right-3 max-w-[230px] rounded-2xl p-5 shadow-glass sm:-right-6">
             <p className="font-display text-xl text-gold-grad">Targa, Marrakech</p>
@@ -63,9 +81,9 @@ export default function About() {
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-4 max-w-xl text-cream/75 leading-relaxed">
-              Une carte généreuse et variée — spécialités marocaines, salades, plats internationaux,
-              pizzas, pâtes, viandes, poissons, sushis, sandwichs et desserts — servie en continu
-              tout au long de la journée.
+              Une carte généreuse et variée — petits déjeuners, salades, burgers, chawarmas,
+              sandwichs, tacos, sélections et desserts maison — servie en continu tout au long de
+              la journée.
             </p>
           </Reveal>
 

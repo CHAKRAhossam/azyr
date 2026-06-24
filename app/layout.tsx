@@ -1,11 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Amiri, Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+const amiri = Amiri({
+  subsets: ["arabic"],
+  weight: ["400", "700"],
+  variable: "--font-amiri",
   display: "swap",
 });
 
@@ -25,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s | AZYR Express Targa",
   },
   description:
-    "AZYR Express Targa — restaurant familial à Marrakech (quartier Targa). Cuisine à la minute, produits frais, service continu. Spécialités marocaines, plats, salades, sushis, pizzas, pâtes, viandes, poissons & desserts. Réservez : +212 5 24 42 24 44.",
+    "AZYR Express Targa — café-restaurant familial à Marrakech (quartier Targa). 100% fait maison, sans conservateur, service continu. Petits déjeuners, salades, burgers, chawarmas, sandwichs, tacos & desserts maison. Réservez : +212 524 422 444.",
   keywords: [
     "AZYR Express Targa",
     "Restaurant Targa",
@@ -69,7 +76,7 @@ const jsonLd = {
   "@type": "Restaurant",
   name: "AZYR Express Targa",
   image: `${SITE_URL}/images/hero/hero-main.png`,
-  servesCuisine: ["Marocaine", "Internationale", "Sushi", "Pizza"],
+  servesCuisine: ["Marocaine", "Fast Food", "Burgers", "Chawarma"],
   priceRange: "$$",
   telephone: "+212524422444",
   address: {
@@ -91,7 +98,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${playfair.variable} ${poppins.variable}`}>
+    <html lang="fr" className={`${playfair.variable} ${poppins.variable} ${amiri.variable}`}>
       <body>
         <script
           type="application/ld+json"

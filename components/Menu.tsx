@@ -25,8 +25,8 @@ export default function Menu() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mx-auto mt-4 max-w-xl text-cream/65">
-              Du tajine marocain au sushi, des pizzas aux desserts maison — tout est préparé à la
-              minute, avec des produits frais.
+              Du petit déjeuner aux burgers, des chawarmas aux desserts maison — 100% fait maison,
+              sans conservateur, avec des produits frais.
             </p>
           </Reveal>
         </div>

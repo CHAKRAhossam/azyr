@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const WORDS = [
-  "Cuisine à la minute",
-  "Saveurs Marocaines",
+  "100% Fait Maison",
+  "Sans Conservateur",
   "Produits frais",
   "Restaurant familial",
   "Service continu",
@@ -35,7 +36,14 @@ export default function Marquee() {
       {WORDS.map((w) => (
         <span key={w} className="flex items-center">
           <span className="px-8 font-display text-2xl text-cream/90 sm:text-4xl">{w}</span>
-          <span className="h-2 w-2 rounded-full bg-gold" />
+          <Image
+            src="/images/mgharba.png"
+            alt=""
+            aria-hidden="true"
+            width={128}
+            height={128}
+            className="h-20 w-20 shrink-0 select-none opacity-80 sm:h-32 sm:w-32"
+          />
         </span>
       ))}
     </div>

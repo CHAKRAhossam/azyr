@@ -32,7 +32,6 @@ export default function Hero() {
 
   return (
     <section id="accueil" ref={ref} className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* Image de fond (parallaxe + zoom) */}
       <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
         <Image
           src="/images/hero/hero-main.png"
@@ -44,16 +43,13 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* Overlays élégants */}
       <motion.div
         style={{ opacity: overlayOpacity }}
         className="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/35 to-ink"
       />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(11,11,12,0.65)_100%)]" />
-      {/* Halo lumineux doré */}
       <div className="pointer-events-none absolute left-1/2 top-1/3 h-[60vh] w-[60vh] -translate-x-1/2 rounded-full bg-gold/10 blur-[120px]" />
 
-      {/* Contenu */}
       <motion.div
         style={{ y: contentY }}
         className="container-x relative z-10 flex h-full flex-col items-center justify-center text-center"
@@ -111,7 +107,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Indicateur de scroll animé */}
       <motion.a
         href="#apropos"
         initial={{ opacity: 0 }}

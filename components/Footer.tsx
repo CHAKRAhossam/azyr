@@ -18,17 +18,26 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-ink-soft">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gold-grad opacity-60" />
-      <div className="container-x py-16">
+      <div className="container-x relative z-10 py-16">
         <Reveal>
           <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
             <div>
-              <Image
-                src="/images/logo.png"
-                alt="AZYR Express Targa"
-                width={170}
-                height={54}
-                className="h-12 w-auto"
-              />
+              <div className="flex items-center gap-4">
+                <Image
+                  src="/images/logo.png"
+                  alt="AZYR Express Targa"
+                  width={170}
+                  height={54}
+                  className="h-12 w-auto"
+                />
+                <Image
+                  src="/images/mgharba.png"
+                  alt="MGHARBA"
+                  width={96}
+                  height={96}
+                  className="h-16 w-16 select-none"
+                />
+              </div>
               <p className="mt-5 max-w-xs text-sm leading-relaxed text-cream/60">
                 {RESTAURANT.slogan}
               </p>
