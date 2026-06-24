@@ -47,7 +47,7 @@ export default function Navbar() {
             width={150}
             height={48}
             priority
-            className="h-11 w-auto object-contain"
+            className="h-16 w-auto object-contain"
           />
         </Link>
 
@@ -89,7 +89,7 @@ export default function Navbar() {
             className="fixed inset-0 z-50 bg-ink/95 backdrop-blur-2xl lg:hidden"
           >
             <div className="container-x flex h-[72px] items-center justify-between">
-              <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-10 w-auto" />
+              <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-14 w-auto" />
               <button onClick={() => setOpen(false)} aria-label="Fermer le menu">
                 <X className="h-7 w-7 text-cream" />
               </button>
