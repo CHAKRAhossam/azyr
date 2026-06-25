@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -54,7 +55,15 @@ export const metadata: Metadata = {
     description: "Cuisine à la minute • Restaurant Familial • Saveurs Authentiques.",
     images: ["/images/hero/hero-main.jpg"],
   },
-  icons: { icon: "/images/logo.png" },
+  icons: {
+    icon: "/images/logo.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "AZYR",
+  },
   robots: { index: true, follow: true },
 };
 
@@ -98,6 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
