@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Clock, Facebook, Instagram, MapPin, Phone } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
 import { Reveal } from "./Reveal";
@@ -67,23 +68,48 @@ export default function Contact() {
             </div>
           </Reveal>
 
-          {/* Carte Google */}
+          {/* Carte Google — chargée seulement au clic (évite ~1-2 MB sur mobile) */}
           <Reveal delay={0.1}>
-            <div className="h-full min-h-[420px] overflow-hidden rounded-3xl border border-white/10 shadow-card">
-              <iframe
-                title="Localisation AZYR Express Targa sur Google Maps"
-                src={RESTAURANT.mapsEmbed}
-                className="h-full min-h-[420px] w-full"
-                style={{ border: 0, filter: "grayscale(0.2) contrast(1.05)" }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
-            </div>
+            <MapEmbed />
           </Reveal>
         </div>
       </div>
     </section>
+  );
+}
+
+function MapEmbed() {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative h-full min-h-[420px] overflow-hidden rounded-3xl border border-white/10 shadow-card">
+      {loaded ? (
+        <iframe
+          title="Localisation AZYR Express Targa sur Google Maps"
+          src={RESTAURANT.mapsEmbed}
+          className="h-full min-h-[420px] w-full"
+          style={{ border: 0, filter: "grayscale(0.2) contrast(1.05)" }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      ) : (
+        <button
+          onClick={() => setLoaded(true)}
+          className="group flex h-full min-h-[420px] w-full flex-col items-center justify-center gap-4 bg-ink-soft p-8 text-center transition-colors hover:bg-ink-card"
+          aria-label="Afficher la carte Google Maps"
+        >
+          <span className="grid h-16 w-16 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold transition-transform group-hover:scale-110">
+            <MapPin className="h-8 w-8" />
+          </span>
+          <span className="font-display text-xl text-cream">{RESTAURANT.address.line1}</span>
+          <span className="text-sm text-cream/60">
+            {RESTAURANT.address.line3} — {RESTAURANT.address.city}
+          </span>
+          <span className="btn-gold mt-2">Afficher la carte</span>
+        </button>
+      )}
+    </div>
   );
 }
 

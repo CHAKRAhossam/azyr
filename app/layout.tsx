@@ -1,18 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Amiri, Playfair_Display, Poppins } from "next/font/google";
+import { Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "600"],
   variable: "--font-playfair",
-  display: "swap",
-});
-
-const amiri = Amiri({
-  subsets: ["arabic"],
-  weight: ["400"],
-  variable: "--font-amiri",
   display: "swap",
 });
 
@@ -98,7 +91,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${playfair.variable} ${poppins.variable} ${amiri.variable}`}>
+    <html lang="fr" className={`${playfair.variable} ${poppins.variable}`}>
       <body>
         <script
           type="application/ld+json"

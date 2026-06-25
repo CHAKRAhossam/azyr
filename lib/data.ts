@@ -22,7 +22,7 @@ export const RESTAURANT = {
   },
   socials: {
     instagram: "https://www.instagram.com/azyrexpresstarga/",
-    facebook: "https://www.facebook.com/AZYRMARRAKECH",
+    facebook: "https://www.facebook.com/AZYREXPRESSTARGA/?locale=fr_FR",
   },
   mapsEmbed:
     "https://www.google.com/maps?q=AZYR+Express+Targa+Jawhar+II+Route+de+Targa+Marrakech&output=embed",
