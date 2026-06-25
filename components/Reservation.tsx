@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/BlurImage";
 import { useState } from "react";
 import { CalendarCheck, Phone } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";

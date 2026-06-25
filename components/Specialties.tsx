@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/BlurImage";
 import { ArrowUpRight } from "lucide-react";
 import { SPECIALTIES } from "@/lib/data";
 import { Reveal, useReveal } from "./Reveal";

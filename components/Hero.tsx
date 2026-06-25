@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/BlurImage";
 import { CalendarCheck, ChevronDown, UtensilsCrossed } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
 
