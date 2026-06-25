@@ -4,21 +4,21 @@ import "./globals.css";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600"],
   variable: "--font-playfair",
   display: "swap",
 });
 
 const amiri = Amiri({
   subsets: ["arabic"],
-  weight: ["400", "700"],
+  weight: ["400"],
   variable: "--font-amiri",
   display: "swap",
 });
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-poppins",
   display: "swap",
 });
@@ -53,13 +53,13 @@ export const metadata: Metadata = {
     title: "AZYR Express Targa — Restaurant familial à Marrakech",
     description:
       "Cuisine à la minute • Restaurant Familial • Saveurs Authentiques. Au cœur de Targa, Marrakech.",
-    images: [{ url: "/images/hero/hero-main.png", width: 1200, height: 630, alt: "AZYR Express Targa" }],
+    images: [{ url: "/images/hero/hero-main.jpg", width: 1200, height: 630, alt: "AZYR Express Targa" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "AZYR Express Targa — Restaurant familial à Marrakech",
     description: "Cuisine à la minute • Restaurant Familial • Saveurs Authentiques.",
-    images: ["/images/hero/hero-main.png"],
+    images: ["/images/hero/hero-main.jpg"],
   },
   icons: { icon: "/images/logo.png" },
   robots: { index: true, follow: true },
@@ -75,7 +75,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
   name: "AZYR Express Targa",
-  image: `${SITE_URL}/images/hero/hero-main.png`,
+  image: `${SITE_URL}/images/hero/hero-main.jpg`,
   servesCuisine: ["Marocaine", "Fast Food", "Burgers", "Chawarma"],
   priceRange: "$$",
   telephone: "+212524422444",

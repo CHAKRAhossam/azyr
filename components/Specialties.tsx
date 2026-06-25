@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SPECIALTIES } from "@/lib/data";
-import { Reveal } from "./Reveal";
+import { Reveal, useReveal } from "./Reveal";
 
 export default function Specialties() {
   return (
@@ -18,7 +17,7 @@ export default function Specialties() {
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="heading-lg max-w-2xl">
-                Cinq univers de goût, <span className="text-gold-grad italic">une même exigence</span>
+                Nos univers de goût, <span className="text-gold-grad italic">une même exigence</span>
               </h2>
             </Reveal>
           </div>
@@ -39,7 +38,7 @@ export default function Specialties() {
               className={
                 i === 0
                   ? "col-span-2 lg:col-span-2 lg:row-span-2"
-                  : i === 4
+                  : i === 5
                   ? "col-span-2 lg:col-span-2"
                   : ""
               }
@@ -60,21 +59,22 @@ function SpecialtyCard({
   i: number;
   className?: string;
 }) {
+  const { ref, className: revealCls, style } = useReveal<HTMLAnchorElement>(i * 0.08);
   return (
-    <motion.a
+    <a
+      ref={ref}
       href="#carte"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative overflow-hidden rounded-2xl border border-white/10 ${className}`}
+      style={style}
+      className={`group relative overflow-hidden rounded-2xl border border-white/10 ${className} ${revealCls}`}
     >
       <Image
         src={s.image}
         alt={s.title}
         fill
         sizes="(max-width: 1024px) 50vw, 25vw"
-        className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+        className={`object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110 ${
+          s.key === "desserts" ? "object-[center_40%]" : ""
+        }`}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent transition-opacity duration-500 group-hover:from-ink/95" />
       <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
@@ -90,6 +90,6 @@ function SpecialtyCard({
           </span>
         </div>
       </div>
-    </motion.a>
+    </a>
   );
 }

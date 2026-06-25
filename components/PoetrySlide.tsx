@@ -1,25 +1,20 @@
 "use client";
 
-import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-const ARABIC_STROPHES = [
-  [
-    "إذا التعبير خانك والكلام",
-    "وأضحى لا يطيب لك المقام",
-    "فهادر كيفما لو كنت ضيفاً",
-    "ودع مافات يختمه السلام",
-    "وصافح من تركت وكن سميحاً",
-    "فذا طيب يجود به الكرام",
-  ],
-  [
-    "ولو جافيت فاجتنب اغتياباً",
-    "ولا يفوتك يا صاح انتقام",
-    "لأن المرء مهما عاش يفنى",
-    "ويبقى الذكر لو طال الخصام",
-    "وسقم الجسم يشفر من دواء",
-    "وسقم النفس ليس له التمام",
-  ],
+const ARABIC_LINES = [
+  "إذا التعبير خانك والكلام",
+  "وأضحى لا يطيب لك المقام",
+  "فهادر كيفما لو كنت ضيفاً",
+  "ودع مافات يختمه السلام",
+  "وصافح من تركت وكن سميحاً",
+  "فذا طيب يجود به الكرام",
+  "ولو جافيت فاجتنب اغتياباً",
+  "ولا يفوتك يا صاح انتقام",
+  "لأن المرء مهما عاش يفنى",
+  "ويبقى الذكر لو طال الخصام",
+  "وسقم الجسم يشفر من دواء",
+  "وسقم النفس ليس له التمام",
 ];
 
 const FRENCH_LINES = [
@@ -34,18 +29,29 @@ const FRENCH_LINES = [
   "spécialement fait pour restaurer l'appétit.",
 ];
 
-export default function PoetrySlide() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const [strophe, setStrophe] = useState(0);
-
+function useInViewOnce<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
   useEffect(() => {
-    if (!inView) return;
-    const interval = setInterval(() => {
-      setStrophe((s) => (s + 1) % ARABIC_STROPHES.length);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [inView]);
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -100px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return { ref, inView };
+}
+
+export default function PoetrySlide() {
+  const { ref, inView } = useInViewOnce<HTMLElement>();
 
   return (
     <section
@@ -58,108 +64,73 @@ export default function PoetrySlide() {
 
         {/* ── Colonne gauche : citation française ── */}
         <div className="flex flex-col">
-          <motion.span
-            initial={{ opacity: 0, y: -16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.7 }}
-            className="mb-2 font-display text-[7rem] leading-none text-gold/20 sm:text-[9rem]"
+          <span
+            className={`mb-2 font-display text-[7rem] leading-none text-gold/20 sm:text-[9rem] ${
+              inView ? "animate-rise" : ""
+            }`}
+            style={inView ? { animationDelay: "0.2s" } : undefined}
             aria-hidden
           >
-            "
-          </motion.span>
+            &quot;
+          </span>
 
           <div className="-mt-6 space-y-0.5">
             {FRENCH_LINES.map((line, i) => (
-              <motion.p
+              <p
                 key={i}
-                initial={{ opacity: 0, y: 18, filter: "blur(4px)" }}
-                animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-                transition={{ delay: 0.25 + i * 0.08, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-lg italic leading-[1.9] text-cream/70 sm:text-xl text-justify"
+                className={`font-display text-lg italic leading-[1.9] text-cream/70 sm:text-xl text-justify ${
+                  inView ? "animate-rise" : ""
+                }`}
+                style={inView ? { animationDelay: `${0.25 + i * 0.08}s` } : undefined}
               >
                 {line}
-              </motion.p>
+              </p>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: -16 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.25 + FRENCH_LINES.length * 0.08 + 0.2, duration: 0.6 }}
-            className="mt-8 flex items-center gap-4"
+          <div
+            className={`mt-8 flex items-center gap-4 ${inView ? "animate-rise" : ""}`}
+            style={inView ? { animationDelay: `${0.25 + FRENCH_LINES.length * 0.08 + 0.2}s` } : undefined}
           >
             <span className="h-px w-10 bg-gold/50" />
             <span className="text-xs uppercase tracking-luxe text-gold/70">
               Rebecca L. Spang, historienne
             </span>
-          </motion.div>
+          </div>
         </div>
 
         {/* ── Séparateur vertical (desktop) ── */}
-        <motion.div
-          initial={{ scaleY: 0, opacity: 0 }}
-          animate={inView ? { scaleY: 1, opacity: 1 } : {}}
-          transition={{ delay: 0.4, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="pointer-events-none absolute left-1/2 top-10 hidden h-[80%] w-px origin-top -translate-x-1/2 bg-gradient-to-b from-transparent via-gold/25 to-transparent lg:block"
-        />
+        <div className="pointer-events-none absolute left-1/2 top-10 hidden h-[80%] w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-gold/25 to-transparent lg:block" />
 
-        {/* ── Colonne droite : poème arabe par strophes ── */}
+        {/* ── Colonne droite : poème arabe complet ── */}
         <div className="flex flex-col items-end" dir="rtl">
           {/* Auteur fixe en haut */}
-          <motion.span
-            initial={{ opacity: 0, x: 20 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold/70"
+          <span
+            className={`mb-6 inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold/70 ${
+              inView ? "animate-rise" : ""
+            }`}
+            style={inView ? { animationDelay: "0.1s" } : undefined}
           >
             جعفر الخطاط
             <span className="h-px w-8 bg-gold/50" />
-          </motion.span>
+          </span>
 
-          {/* Strophes alternées */}
+          {/* Poème complet en un seul bloc */}
           <div className="w-full text-right">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={strophe}
-                initial={{ opacity: 0, y: 16, filter: "blur(5px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -16, filter: "blur(5px)" }}
-                transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            {ARABIC_LINES.map((line, i) => (
+              <p
+                key={i}
+                className={`font-arabic text-xl leading-[2.1] text-cream/85 sm:text-2xl text-justify ${
+                  inView ? "animate-rise" : ""
+                }`}
+                style={{
+                  textShadow: "0 0 40px rgba(201,160,78,0.1)",
+                  ...(inView ? { animationDelay: `${0.25 + i * 0.08}s` } : {}),
+                }}
               >
-                {ARABIC_STROPHES[strophe].map((line, i) => (
-                  <motion.p
-                    key={i}
-                    initial={{ opacity: 0, x: 24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-arabic text-xl leading-[2.1] text-cream/85 sm:text-2xl text-justify"
-                    style={{ textShadow: "0 0 40px rgba(201,160,78,0.1)" }}
-                  >
-                    {line}
-                  </motion.p>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Indicateur de strophe */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 1, duration: 0.6 }}
-              className="mt-6 flex justify-end gap-2"
-              dir="ltr"
-            >
-              {ARABIC_STROPHES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setStrophe(i)}
-                  className={`h-1 rounded-full transition-all duration-500 ${
-                    i === strophe ? "w-6 bg-gold" : "w-2 bg-cream/20"
-                  }`}
-                  aria-label={`Strophe ${i + 1}`}
-                />
-              ))}
-            </motion.div>
+                {line}
+              </p>
+            ))}
           </div>
         </div>
 

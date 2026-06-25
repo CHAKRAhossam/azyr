@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { CalendarCheck, Phone } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
 import { Reveal } from "./Reveal";
@@ -10,14 +9,34 @@ import { Reveal } from "./Reveal";
 const FIELD =
   "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-all focus:border-gold/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-gold/20";
 
+// Numéro WhatsApp pour recevoir les demandes de réservation (+212 672 019230)
+const WHATSAPP_NUMBER = "212672019230";
+
 export default function Reservation() {
   const [sent, setSent] = useState(false);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const nom = (data.get("nom") as string)?.trim() || "";
+    const tel = (data.get("telephone") as string)?.trim() || "";
+    const personnes = (data.get("personnes") as string)?.trim() || "";
+    const date = (data.get("date") as string)?.trim() || "";
+    const heure = (data.get("heure") as string)?.trim() || "";
+    const message = (data.get("message") as string)?.trim() || "";
+
+    const texte =
+      "Bonjour AZYR Express Targa, je souhaite réserver une table.\n\n" +
+      `• Nom : ${nom}\n` +
+      `• Téléphone : ${tel}\n` +
+      `• Personnes : ${personnes}\n` +
+      `• Date : ${date}\n` +
+      `• Heure : ${heure}` +
+      (message ? `\n• Message : ${message}` : "");
+
     setSent(true);
-    // Aucune base de données : on invite le client à confirmer par téléphone.
-    window.location.href = RESTAURANT.phoneHref;
+    // Envoi de la demande de réservation sur WhatsApp avec les infos pré-remplies.
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(texte)}`, "_blank");
   };
 
   return (
@@ -26,8 +45,8 @@ export default function Reservation() {
         {/* Visuel + accroche */}
         <Reveal className="relative hidden overflow-hidden rounded-3xl lg:block">
           <Image
-            src="/images/marocaine/marocaine-extra-1.png"
-            alt="Table dressée au restaurant AZYR Express Targa"
+            src="/images/hero/hero-main.jpg"
+            alt="Façade du restaurant AZYR Express Targa illuminée le soir"
             fill
             sizes="50vw"
             className="object-cover"
@@ -52,44 +71,43 @@ export default function Reservation() {
             <span className="eyebrow mb-5">Réservation</span>
             <h3 className="heading-lg mb-2 text-3xl sm:text-4xl">Demande de table</h3>
             <p className="mb-7 text-sm text-cream/60">
-              Remplissez le formulaire — nous confirmons votre venue par téléphone.
+              Remplissez le formulaire — votre demande nous est envoyée sur WhatsApp et nous confirmons votre venue.
             </p>
 
             <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Nom</label>
-                <input required type="text" placeholder="Votre nom" className={FIELD} />
+                <input required name="nom" type="text" placeholder="Votre nom" className={FIELD} />
               </div>
               <div>
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Téléphone</label>
-                <input required type="tel" placeholder="+212 ..." className={FIELD} />
+                <input required name="telephone" type="tel" placeholder="+212 ..." className={FIELD} />
               </div>
               <div>
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Personnes</label>
-                <input required type="number" min={1} defaultValue={2} className={FIELD} />
+                <input required name="personnes" type="number" min={1} defaultValue={2} className={FIELD} />
               </div>
               <div>
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Date</label>
-                <input required type="date" className={`${FIELD} [color-scheme:dark]`} />
+                <input required name="date" type="date" className={`${FIELD} [color-scheme:dark]`} />
               </div>
               <div>
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Heure</label>
-                <input required type="time" className={`${FIELD} [color-scheme:dark]`} />
+                <input required name="heure" type="time" className={`${FIELD} [color-scheme:dark]`} />
               </div>
               <div className="sm:col-span-2">
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Message</label>
-                <textarea rows={3} placeholder="Une demande particulière ?" className={`${FIELD} resize-none`} />
+                <textarea name="message" rows={3} placeholder="Une demande particulière ?" className={`${FIELD} resize-none`} />
               </div>
 
               <div className="sm:col-span-2">
-                <motion.button
+                <button
                   type="submit"
-                  whileTap={{ scale: 0.98 }}
-                  className="btn-gold w-full"
+                  className="btn-gold w-full transition-transform active:scale-[0.98]"
                 >
                   <CalendarCheck className="h-4 w-4" />
-                  {sent ? "Merci ! Confirmation par téléphone…" : "Réserver ma table"}
-                </motion.button>
+                  {sent ? "Ouverture de WhatsApp…" : "Réserver ma table"}
+                </button>
                 <p className="mt-3 text-center text-xs text-cream/45">
                   Ou appelez directement le{" "}
                   <a href={RESTAURANT.phoneHref} className="text-gold hover:underline">

@@ -1,8 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 const STATS = [
@@ -12,35 +8,23 @@ const STATS = [
 ];
 
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-
   return (
     <section id="apropos" className="relative bg-ink py-24 sm:py-32">
       <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
         {/* Visuel */}
         <Reveal className="relative">
-          <div ref={ref} className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-card">
-            <motion.div style={{ y }} className="absolute inset-0 scale-110">
-              <Image
-                src="/images/marocaine/marocaine-extra-2.png"
-                alt="Ambiance intérieure moderne d'AZYR Express Targa : bar à jus et smoothies frais, décor chaleureux"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </motion.div>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-card">
+            <Image
+              src="/images/plat/plat-1.jpg"
+              alt="Plat préparé à la minute au restaurant AZYR Express Targa"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
           </div>
           {/* Sceau MGHARBA flottant */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -12 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute -left-10 -top-14 grid h-44 w-44 place-items-center sm:-left-16 sm:h-52 sm:w-52"
-          >
+          <div className="absolute -left-10 -top-14 grid h-44 w-44 place-items-center sm:-left-16 sm:h-52 sm:w-52">
             {/* Disque noir limité au cercle du logo */}
             <span className="absolute h-[67%] w-[70%] rounded-full bg-ink" />
             <Image
@@ -50,7 +34,7 @@ export default function About() {
               height={120}
               className="relative h-full w-full select-none object-contain"
             />
-          </motion.div>
+          </div>
           {/* Carte flottante en verre */}
           <div className="glass absolute -bottom-6 -right-3 max-w-[230px] rounded-2xl p-5 shadow-glass sm:-right-6">
             <p className="font-display text-xl text-gold-grad">Targa, Marrakech</p>

@@ -11,9 +11,8 @@ import {
   Utensils,
   type LucideIcon,
 } from "lucide-react";
-import { motion } from "framer-motion";
 import { REASONS } from "@/lib/data";
-import { Reveal } from "./Reveal";
+import { Reveal, useReveal } from "./Reveal";
 
 const ICONS: Record<string, LucideIcon> = {
   Flame,
@@ -47,25 +46,33 @@ export default function WhyChoose() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {REASONS.map((r, i) => {
             const Icon = ICONS[r.icon] ?? Sparkles;
-            return (
-              <motion.div
-                key={r.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.55, delay: i * 0.07 }}
-                className="card-hover glass group rounded-2xl p-7"
-              >
-                <span className="mb-5 grid h-14 w-14 place-items-center rounded-2xl border border-gold/30 bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold group-hover:text-ink">
-                  <Icon className="h-7 w-7" />
-                </span>
-                <h3 className="font-display text-xl text-cream">{r.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-cream/65">{r.text}</p>
-              </motion.div>
-            );
+            return <ReasonCard key={r.title} title={r.title} text={r.text} Icon={Icon} i={i} />;
           })}
         </div>
       </div>
     </section>
+  );
+}
+
+function ReasonCard({
+  title,
+  text,
+  Icon,
+  i,
+}: {
+  title: string;
+  text: string;
+  Icon: LucideIcon;
+  i: number;
+}) {
+  const { ref, className, style } = useReveal<HTMLDivElement>(i * 0.07);
+  return (
+    <div ref={ref} style={style} className={`card-hover glass group rounded-2xl p-7 ${className}`}>
+      <span className="mb-5 grid h-14 w-14 place-items-center rounded-2xl border border-gold/30 bg-gold/10 text-gold transition-all duration-500 group-hover:bg-gold group-hover:text-ink">
+        <Icon className="h-7 w-7" />
+      </span>
+      <h3 className="font-display text-xl text-cream">{title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-cream/65">{text}</p>
+    </div>
   );
 }

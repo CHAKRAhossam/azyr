@@ -3,8 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Menu, Phone, X } from "lucide-react";
+import { CalendarCheck, Menu, Phone, X } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
 
 const LINKS = [
@@ -65,64 +64,71 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden lg:block">
-          <a href={RESTAURANT.phoneHref} className="btn-gold">
-            <Phone className="h-4 w-4" /> Réserver
+        <div className="hidden items-center gap-3 lg:flex">
+          <a href={RESTAURANT.phoneHref} className="btn-ghost">
+            <Phone className="h-4 w-4" /> Appeler
+          </a>
+          <a href="#reservation" className="btn-gold">
+            <CalendarCheck className="h-4 w-4" /> Réserver
           </a>
         </div>
 
-        <button
-          onClick={() => setOpen(true)}
-          className="text-cream lg:hidden"
-          aria-label="Ouvrir le menu"
-        >
-          <Menu className="h-7 w-7" />
-        </button>
+        <div className="flex items-center gap-3 lg:hidden">
+          <a
+            href={RESTAURANT.phoneHref}
+            aria-label="Appeler le restaurant"
+            className="grid h-10 w-10 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold transition-colors hover:bg-gold hover:text-ink"
+          >
+            <Phone className="h-5 w-5" />
+          </a>
+          <button
+            onClick={() => setOpen(true)}
+            className="text-cream"
+            aria-label="Ouvrir le menu"
+          >
+            <Menu className="h-7 w-7" />
+          </button>
+        </div>
       </nav>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-ink/95 backdrop-blur-2xl lg:hidden"
-          >
-            <div className="container-x flex h-[72px] items-center justify-between">
-              <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-14 w-auto" />
-              <button onClick={() => setOpen(false)} aria-label="Fermer le menu">
-                <X className="h-7 w-7 text-cream" />
-              </button>
-            </div>
-            <motion.ul
-              className="container-x mt-8 flex flex-col gap-2"
-              initial="hidden"
-              animate="show"
-              variants={{ show: { transition: { staggerChildren: 0.06 } } }}
+      {/* Menu mobile — transition CSS (remplace AnimatePresence) */}
+      <div
+        className={`fixed inset-0 z-50 bg-ink/95 backdrop-blur-2xl transition-opacity duration-300 lg:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      >
+        <div className="container-x flex h-[72px] items-center justify-between">
+          <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-14 w-auto" />
+          <button onClick={() => setOpen(false)} aria-label="Fermer le menu">
+            <X className="h-7 w-7 text-cream" />
+          </button>
+        </div>
+        <ul className="container-x mt-8 flex flex-col gap-2">
+          {LINKS.map((l, i) => (
+            <li
+              key={l.href}
+              className={open ? "animate-rise" : ""}
+              style={open ? { animationDelay: `${i * 0.06}s` } : undefined}
             >
-              {LINKS.map((l) => (
-                <motion.li
-                  key={l.href}
-                  variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }}
-                >
-                  <Link
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="block border-b border-white/5 py-4 font-display text-2xl text-cream/90"
-                  >
-                    {l.label}
-                  </Link>
-                </motion.li>
-              ))}
-              <li className="mt-6">
-                <a href={RESTAURANT.phoneHref} className="btn-gold w-full">
-                  <Phone className="h-4 w-4" /> Réserver une table
-                </a>
-              </li>
-            </motion.ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <Link
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block border-b border-white/5 py-4 font-display text-2xl text-cream/90"
+              >
+                {l.label}
+              </Link>
+            </li>
+          ))}
+          <li className="mt-6 flex flex-col gap-3">
+            <a href="#reservation" onClick={() => setOpen(false)} className="btn-gold w-full">
+              <CalendarCheck className="h-4 w-4" /> Réserver une table
+            </a>
+            <a href={RESTAURANT.phoneHref} className="btn-ghost w-full">
+              <Phone className="h-4 w-4" /> Appeler
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }
