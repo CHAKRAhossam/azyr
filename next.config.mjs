@@ -12,6 +12,8 @@ const nextConfig = {
     formats: ["image/webp"],
     // Garde les images optimisées en cache 1 an (côté CDN ET navigateur via l'upstream immutable)
     minimumCacheTTL: 31536000,
+    // Qualités autorisées (Next 16 bloque les autres) — 60 pour le hero (plus léger), 75 par défaut
+    qualities: [60, 75],
   },
   // Cache navigateur "immutable" pour les images sources : une fois téléchargées,
   // elles ne sont JAMAIS re-demandées au scroll (évite les zones blanches sur mobile).

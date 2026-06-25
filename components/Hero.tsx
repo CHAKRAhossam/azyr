@@ -14,6 +14,7 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
+          quality={60}
           sizes="100vw"
           className="origin-center object-contain object-[center_30%] landscape:object-cover landscape:object-[center_38%]"
         />
