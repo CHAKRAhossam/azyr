@@ -1,4 +1,4 @@
-import Image from "@/components/BlurImage";
+import Image from "next/image";
 import { CalendarCheck, ChevronDown, UtensilsCrossed } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
 
@@ -14,7 +14,6 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
-          quality={60}
           sizes="100vw"
           className="origin-center object-contain object-[center_30%] landscape:object-cover landscape:object-[center_38%]"
         />

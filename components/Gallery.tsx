@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/BlurImage";
+import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import { GALLERY } from "@/lib/data";

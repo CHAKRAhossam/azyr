@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/BlurImage";
+import Image from "next/image";
 import { useState } from "react";
 import { MENU } from "@/lib/data";
 

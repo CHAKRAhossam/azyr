@@ -1,4 +1,4 @@
-import Image from "@/components/BlurImage";
+import Image from "next/image";
 import { Reveal } from "./Reveal";
 
 const STATS = [

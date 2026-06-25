@@ -1,12 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Amiri, Playfair_Display, Poppins } from "next/font/google";
 import "./globals.css";
-import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "600"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+const amiri = Amiri({
+  subsets: ["arabic"],
+  weight: ["400"],
+  variable: "--font-amiri",
   display: "swap",
 });
 
@@ -55,15 +61,7 @@ export const metadata: Metadata = {
     description: "Cuisine à la minute • Restaurant Familial • Saveurs Authentiques.",
     images: ["/images/hero/hero-main.jpg"],
   },
-  icons: {
-    icon: "/images/logo.png",
-    apple: "/icons/apple-touch-icon.png",
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "AZYR",
-  },
+  icons: { icon: "/images/logo.png" },
   robots: { index: true, follow: true },
 };
 
@@ -100,14 +98,13 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${playfair.variable} ${poppins.variable}`}>
+    <html lang="fr" className={`${playfair.variable} ${poppins.variable} ${amiri.variable}`}>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
-        <ServiceWorkerRegister />
       </body>
     </html>
   );

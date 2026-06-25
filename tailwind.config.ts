@@ -38,7 +38,7 @@ const config: Config = {
       fontFamily: {
         display: ["var(--font-playfair)", "serif"],
         sans: ["var(--font-poppins)", "system-ui", "sans-serif"],
-        arabic: ['"Noto Naskh Arabic"', '"Geeza Pro"', "Amiri", '"Times New Roman"', "serif"],
+        arabic: ["var(--font-amiri)", "serif"],
       },
       letterSpacing: {
         luxe: "0.32em",
