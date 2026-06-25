@@ -11,13 +11,14 @@ export default function About() {
   return (
     <section id="apropos" className="relative bg-ink py-24 sm:py-32">
       <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-        {/* Visuel */}
-        <Reveal className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-card">
+        {/* Visuel — affiché immédiatement (chargement eager, pas de fondu qui masque l'image) */}
+        <div className="relative">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink-card shadow-card">
             <Image
               src="/images/plat/plat-1.jpg"
               alt="Plat préparé à la minute au restaurant AZYR Express Targa"
               fill
+              loading="eager"
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
@@ -42,7 +43,7 @@ export default function About() {
               Un café-restaurant familial au cœur du quartier.
             </p>
           </div>
-        </Reveal>
+        </div>
 
         {/* Texte */}
         <div>

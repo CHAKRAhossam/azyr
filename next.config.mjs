@@ -10,8 +10,20 @@ const nextConfig = {
   images: {
     // WebP uniquement : l'encodage AVIF est très lent et faisait échouer le chargement des images
     formats: ["image/webp"],
-    // Garde les images optimisées en cache 30 jours (moins de re-génération)
-    minimumCacheTTL: 2592000,
+    // Garde les images optimisées en cache 1 an (côté CDN ET navigateur via l'upstream immutable)
+    minimumCacheTTL: 31536000,
+  },
+  // Cache navigateur "immutable" pour les images sources : une fois téléchargées,
+  // elles ne sont JAMAIS re-demandées au scroll (évite les zones blanches sur mobile).
+  async headers() {
+    return [
+      {
+        source: "/images/:path*",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+    ];
   },
   experimental: {
     // N'importe que les icônes réellement utilisées (bundle plus léger)

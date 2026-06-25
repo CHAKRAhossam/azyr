@@ -26,9 +26,12 @@ export function useReveal<T extends HTMLElement>(delay = 0) {
     // Accessibilité : on ne masque jamais si l'utilisateur réduit les animations
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // Déjà visible au montage → on garde affiché (pas de flash)
+    // On ne masque QUE ce qui est encore entièrement SOUS la ligne de flottaison.
+    // Tout ce qui est déjà visible OU déjà dépassé (au-dessus de l'écran, ex. après
+    // une hydratation tardive en prod pendant que l'utilisateur a scrollé) reste
+    // affiché → plus jamais de section blanche au re-scroll.
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 60 && rect.bottom > 0) return;
+    if (rect.top < window.innerHeight - 40) return;
 
     setState("hidden");
     const io = new IntersectionObserver(
@@ -38,10 +41,15 @@ export function useReveal<T extends HTMLElement>(delay = 0) {
           io.disconnect();
         }
       },
-      { rootMargin: "0px 0px -80px 0px" }
+      { rootMargin: "0px 0px -60px 0px" }
     );
     io.observe(el);
-    return () => io.disconnect();
+    // Filet de sécurité : le contenu ne reste JAMAIS masqué (au cas où l'observer échoue)
+    const failSafe = window.setTimeout(() => setState("shown"), 2500);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(failSafe);
+    };
   }, []);
 
   const className =

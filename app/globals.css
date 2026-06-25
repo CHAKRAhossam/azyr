@@ -107,13 +107,13 @@
    → Si le JS est lent ou absent, tout reste lisible immédiatement.
    ========================================================================= */
 .reveal {
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 .reveal-hidden {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(16px);
 }
 .reveal-shown {
   opacity: 1;
