@@ -31,6 +31,7 @@ export default function Navbar() {
   }, [open]);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
@@ -90,20 +91,23 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+      </header>
 
-      {/* Menu mobile — transition CSS (remplace AnimatePresence) */}
+      {/* Menu mobile — rendu HORS du <header> : un ancêtre avec `backdrop-filter`
+          (ajouté au scroll) devient bloc conteneur des enfants `fixed` et tronque
+          l'overlay au haut de page → fond opaque sur tout l'écran garanti ici. */}
       <div
-        className={`fixed inset-0 z-50 bg-ink/95 backdrop-blur-2xl transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-ink transition-opacity duration-300 lg:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div className="container-x flex h-[72px] items-center justify-between">
-          <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-14 w-auto" />
-          <button onClick={() => setOpen(false)} aria-label="Fermer le menu">
+        <div className="container-x flex h-16 shrink-0 items-center justify-between sm:h-20">
+          <Image src="/images/logo.png" alt="AZYR" width={140} height={44} className="h-10 w-auto sm:h-12" />
+          <button onClick={() => setOpen(false)} aria-label="Fermer le menu" className="p-1">
             <X className="h-7 w-7 text-cream" />
           </button>
         </div>
-        <ul className="container-x mt-8 flex flex-col gap-2">
+        <ul className="container-x mt-4 flex flex-col gap-1 pb-10">
           {LINKS.map((l, i) => (
             <li
               key={l.href}
@@ -129,6 +133,6 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-    </header>
+    </>
   );
 }

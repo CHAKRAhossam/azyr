@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { CalendarCheck, Phone } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
+import { BLUR } from "@/lib/blurData";
 import { Reveal } from "./Reveal";
 
 const FIELD =
@@ -48,6 +49,8 @@ export default function Reservation() {
             src="/images/hero/hero-main.jpg"
             alt="Façade du restaurant AZYR Express Targa illuminée le soir"
             fill
+            placeholder="blur"
+            blurDataURL={BLUR["/images/hero/hero-main.jpg"]}
             sizes="50vw"
             className="object-cover"
           />

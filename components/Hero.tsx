@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CalendarCheck, ChevronDown, UtensilsCrossed } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
+import { BLUR } from "@/lib/blurData";
 
 const TITLE = ["Saveurs", "à la", "Minute"];
 
@@ -14,6 +15,8 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
+          placeholder="blur"
+          blurDataURL={BLUR["/images/hero/hero-main.jpg"]}
           sizes="100vw"
           className="origin-center object-contain object-[center_30%] landscape:object-cover landscape:object-[center_38%]"
         />
@@ -67,7 +70,7 @@ export default function Hero() {
 
       <a
         href="#apropos"
-        className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 animate-rise flex-col items-center gap-2 text-cream/60 sm:bottom-8"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 animate-rise flex-col items-center gap-2 text-cream/60 sm:flex"
         style={{ animationDelay: "1.6s" }}
         aria-label="Défiler vers le bas"
       >

@@ -11,6 +11,9 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    /* Scrollbar Firefox (ignore ::-webkit-scrollbar) */
+    scrollbar-width: thin;
+    scrollbar-color: #c9a04e #0b0b0c;
   }
 
   body {
