@@ -14,6 +14,9 @@ const amiri = Amiri({
   weight: ["400"],
   variable: "--font-amiri",
   display: "swap",
+  // Police arabe (~105 Ko) utilisée uniquement pour le poème en bas de page :
+  // on la retire du chemin critique pour ne pas ralentir le rendu initial sur mobile.
+  preload: false,
 });
 
 const poppins = Poppins({

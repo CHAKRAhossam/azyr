@@ -1,7 +1,6 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 import { CalendarCheck, ChevronDown, UtensilsCrossed } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
-import { BLUR } from "@/lib/blurData";
 
 const TITLE = ["Saveurs", "à la", "Minute"];
 
@@ -15,8 +14,6 @@ export default function Hero() {
           fill
           priority
           fetchPriority="high"
-          placeholder="blur"
-          blurDataURL={BLUR["/images/hero/hero-main.jpg"]}
           sizes="100vw"
           className="origin-center object-contain object-[center_30%] landscape:object-cover landscape:object-[center_38%]"
         />

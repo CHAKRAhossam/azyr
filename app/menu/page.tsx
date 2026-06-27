@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Image from "@/components/Img";
 import Link from "next/link";
 import { MapPin, Phone, ArrowLeft } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";

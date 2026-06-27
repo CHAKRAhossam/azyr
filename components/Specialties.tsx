@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Img";
 import { ArrowUpRight } from "lucide-react";
 import { SPECIALTIES } from "@/lib/data";
-import { BLUR } from "@/lib/blurData";
 import { Reveal, useReveal } from "./Reveal";
 
 export default function Specialties() {
@@ -72,8 +71,6 @@ function SpecialtyCard({
         src={s.image}
         alt={s.title}
         fill
-        placeholder="blur"
-        blurDataURL={BLUR[s.image]}
         sizes="(max-width: 1024px) 50vw, 25vw"
         className={`object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110 ${
           s.key === "desserts" ? "object-[center_40%]" : ""

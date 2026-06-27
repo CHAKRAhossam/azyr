@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/Img";
 
 const WORDS = [
   "100% Fait Maison",

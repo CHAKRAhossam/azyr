@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Img";
 import { useState } from "react";
 import { MENU } from "@/lib/data";
-import { BLUR } from "@/lib/blurData";
 import { Reveal } from "./Reveal";
 
 export default function Menu() {
@@ -64,8 +63,6 @@ export default function Menu() {
                       src={it.image!}
                       alt={it.name}
                       fill
-                      placeholder={BLUR[it.image!] ? "blur" : "empty"}
-                      blurDataURL={BLUR[it.image!]}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                     />

@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { BLUR } from "@/lib/blurData";
+import Image from "@/components/Img";
 import { Reveal } from "./Reveal";
 
 const STATS = [
@@ -19,8 +18,8 @@ export default function About() {
               src="/images/plat/plat-1.jpg"
               alt="Plat préparé à la minute au restaurant AZYR Express Targa"
               fill
-              placeholder="blur"
-              blurDataURL={BLUR["/images/plat/plat-1.jpg"]}
+              loading="eager"
+              fetchPriority="high"
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />

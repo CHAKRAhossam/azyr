@@ -1,14 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/Img";
 import { useState } from "react";
 import { CalendarCheck, Phone } from "lucide-react";
 import { RESTAURANT } from "@/lib/data";
-import { BLUR } from "@/lib/blurData";
 import { Reveal } from "./Reveal";
 
 const FIELD =
-  "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-all focus:border-gold/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-gold/20";
+  "block w-full min-w-0 max-w-full appearance-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-cream placeholder:text-cream/35 outline-none transition-all focus:border-gold/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-gold/20";
 
 // Numéro WhatsApp pour recevoir les demandes de réservation (+212 672 019230)
 const WHATSAPP_NUMBER = "212672019230";
@@ -49,8 +48,6 @@ export default function Reservation() {
             src="/images/hero/hero-main.jpg"
             alt="Façade du restaurant AZYR Express Targa illuminée le soir"
             fill
-            placeholder="blur"
-            blurDataURL={BLUR["/images/hero/hero-main.jpg"]}
             sizes="50vw"
             className="object-cover"
           />
@@ -77,7 +74,7 @@ export default function Reservation() {
               Remplissez le formulaire — votre demande nous est envoyée sur WhatsApp et nous confirmons votre venue.
             </p>
 
-            <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <form onSubmit={onSubmit} className="grid w-full min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="mb-1.5 block text-xs uppercase tracking-wider text-cream/50">Nom</label>
                 <input required name="nom" type="text" placeholder="Votre nom" className={FIELD} />
