@@ -1,9 +1,30 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { Metadata } from "next";
 import Image from "@/components/Img";
 import Link from "next/link";
 import { MapPin, Phone, ArrowLeft } from "lucide-react";
-import { RESTAURANT } from "@/lib/data";
+import { RESTAURANT, MENU, type MenuCategory } from "@/lib/data";
+import { menuImagePath } from "@/lib/menuImages";
 import MenuCarte from "./MenuCarte";
+
+/**
+ * Enrichit le menu avec les photos RÉELLEMENT présentes dans public/images/menu.
+ * S'exécute au build (page statique) : une photo ajoutée puis redéployée
+ * apparaît automatiquement, sans jamais afficher d'image cassée.
+ */
+function menuWithPhotos(): MenuCategory[] {
+  const publicDir = path.join(process.cwd(), "public");
+  return MENU.map((cat) => ({
+    ...cat,
+    items: cat.items.map((it) => {
+      if (it.textOnly) return it;
+      const rel = menuImagePath(cat.key, it.name);
+      const exists = fs.existsSync(path.join(publicDir, rel));
+      return exists ? { ...it, image: rel } : it;
+    }),
+  }));
+}
 
 export const metadata: Metadata = {
   title: "La Carte",
@@ -49,7 +70,7 @@ export default function MenuPage() {
 
       {/* Carte */}
       <section className="container-x py-10 sm:py-14">
-        <MenuCarte />
+        <MenuCarte menu={menuWithPhotos()} />
         <p className="mt-12 text-center text-xs uppercase tracking-luxe text-cream/40">
           Les prix sont indiqués en dirhams (DH) — carte à titre indicatif
         </p>

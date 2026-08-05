@@ -100,12 +100,16 @@ export type MenuItem = {
   description: string;
   price: string;
   image?: string;
+  /** Force l'affichage en liste texte (jamais de carte photo), même dans une catégorie à photos. */
+  textOnly?: boolean;
 };
 
 export type MenuCategory = {
   key: string;
   label: string;
   items: MenuItem[];
+  /** Affiche la mention « Photo non contractuelle » en coin des photos de cette catégorie. */
+  photoDisclaimer?: boolean;
 };
 
 export const MENU: MenuCategory[] = [
@@ -146,9 +150,9 @@ export const MENU: MenuCategory[] = [
     key: "boissons-fraiches",
     label: "Boissons Fraîches",
     items: [
-      { name: "Eaux", description: "Petite · moyenne · grande", price: "6 / 10 / 16 DH" },
-      { name: "Soda 33 cl", description: "", price: "12 DH" },
-      { name: "Oulmès", description: "Petite ou grande", price: "14 / 20 DH" },
+      { name: "Eaux", description: "Petite · moyenne · grande", price: "6 / 10 / 16 DH", textOnly: true },
+      { name: "Soda 33 cl", description: "", price: "12 DH", textOnly: true },
+      { name: "Oulmès", description: "Petite ou grande", price: "14 / 20 DH", textOnly: true },
       { name: "Citronnade", description: "Jus 25 cl", price: "16 DH" },
       { name: "Ice Tea", description: "", price: "18 DH" },
       { name: "Citron", description: "Jus 25 cl", price: "20 DH" },
@@ -184,6 +188,7 @@ export const MENU: MenuCategory[] = [
   {
     key: "burgers",
     label: "Burgers",
+    photoDisclaimer: true,
     items: [
       { name: "Cheese Burger Classic", description: "Steak haché 5% m.g · double fromage · cheddar smooky · sauce Filadelfia · servi avec frites", price: "50 DH" },
       { name: "Chicken Crispy Burger", description: "Chicken · double fromage · cheddar smooky · sauce maison · servi avec frites", price: "55 DH" },
@@ -194,6 +199,7 @@ export const MENU: MenuCategory[] = [
   {
     key: "chawarma",
     label: "Chawarma",
+    photoDisclaimer: true,
     items: [
       { name: "Chawarma Falafel", description: "Salade verte, choux, tomate, cornichons, oignons blancs, falafel, sauce maison · servi avec frites", price: "25 DH" },
       { name: "Chawarma Agha", description: "Servi avec frites", price: "35 DH" },
