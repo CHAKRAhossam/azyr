@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "photos:clean": "node -e \"require('fs').rmSync('.next/dev/cache/images',{recursive:true,force:true});console.log('cache images purge')\""
   },
   "dependencies": {
     "lucide-react": "0.469.0",

@@ -55,12 +55,6 @@ export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
       <div key={active} className="animate-rise">
         {hasImages ? (
           <>
-            {textItems.length > 0 && (
-              <div className="mx-auto mb-8 grid max-w-3xl gap-x-10 gap-y-0.5 sm:grid-cols-2">
-                {textItems.map(textRow)}
-              </div>
-            )}
-
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {cardItems.map((it, i) => (
                 <article
@@ -76,6 +70,9 @@ export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
                           alt={it.name}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          /* Les 3 premières cartes sont au-dessus de la ligne de flottaison :
+                             chargées en priorité, elles évitent un LCP dégradé. */
+                          priority={i < 3}
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-ink-card/90 via-transparent to-transparent" />
@@ -103,6 +100,13 @@ export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
                 </article>
               ))}
             </div>
+
+            {/* Suppléments, eaux, sodas… : sous les cartes photo, en liste texte */}
+            {textItems.length > 0 && (
+              <div className="mx-auto mt-10 grid max-w-3xl gap-x-10 gap-y-0.5 sm:grid-cols-2">
+                {textItems.map(textRow)}
+              </div>
+            )}
           </>
         ) : (
           <div className="mx-auto grid max-w-3xl gap-x-10 gap-y-0.5 sm:grid-cols-2">

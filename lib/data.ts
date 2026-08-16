@@ -69,7 +69,7 @@ export const SPECIALTIES: Specialty[] = [
     key: "boissons-fraiches",
     title: "Boissons Fraîches",
     subtitle: "Jus pressés, citronnades & mojitos rafraîchissants",
-    image: "/images/marocaine/marocaine-extra-2.jpg",
+    image: "/images/menu/boissons-fraiches/mojitos.jpg",
   },
   {
     key: "desserts",
@@ -121,9 +121,10 @@ export const MENU: MenuCategory[] = [
       { name: "Express Premium", description: "Café, crème ou thé · omelette ou œufs au plat · jus d'oranges ou de carottes", price: "35 DH" },
       { name: "Azyr Prestige", description: "Café, crème ou thé · pain mahrach · fromage blanc · huile d'olive jeune · origan · olives noires · omelette ou œufs au plat · jus d'oranges ou de carottes · yaourt", price: "45 DH" },
       { name: "Azyr", description: "Café, crème ou thé · pain mahrach, fromage blanc, huile d'olive jeune, origan, olives noires · jus d'oranges ou de carottes · khlaa aux œufs · mini salade de fruits", price: "55 DH" },
-      { name: "Suppl. Viennoiserie", description: "Supplément petit déjeuner", price: "5 DH" },
-      { name: "Suppl. M9ila Fromage", description: "Supplément petit déjeuner", price: "25 DH" },
-      { name: "Suppl. M9ila Khliaa", description: "Supplément petit déjeuner", price: "35 DH" },
+      // Suppléments : jamais de carte photo, toujours en liste texte sous les formules.
+      { name: "Suppl. Viennoiserie", description: "Supplément petit déjeuner", price: "5 DH", textOnly: true },
+      { name: "Suppl. M9ila Fromage", description: "Supplément petit déjeuner", price: "25 DH", textOnly: true },
+      { name: "Suppl. M9ila Khliaa", description: "Supplément petit déjeuner", price: "35 DH", textOnly: true },
     ],
   },
   {
@@ -255,10 +256,10 @@ export const MENU: MenuCategory[] = [
    Galerie immersive — toutes les images du dossier
    ------------------------------------------------------------------------- */
 export const GALLERY: string[] = [
-  "/images/marocaine/marocaine-extra-2.jpg",
+  "/images/menu/selections/spaghetti-maison.jpg",
   "/images/plat/plat-1.jpg",
   "/images/marocaine/marocaine-7.jpg",
-  "/images/sushi/sushi-1.jpg",
+  "/images/menu/petit-dejeuner/azyr.jpg",
   "/images/marocaine/marocaine-extra-4.jpg",
   "/images/plat/plat-3.jpg",
   "/images/burgers.jpg",
