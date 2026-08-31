@@ -26,7 +26,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const SITE_URL = "https://azyr-express-targa.ma";
+const SITE_URL = "https://azyr.ma";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
