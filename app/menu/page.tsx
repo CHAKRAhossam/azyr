@@ -1,37 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
 import Image from "@/components/Img";
 import Link from "next/link";
 import { MapPin, Phone, ArrowLeft } from "lucide-react";
-import { RESTAURANT, MENU, type MenuCategory } from "@/lib/data";
-import { menuImagePath } from "@/lib/menuImages";
-import MenuCarte from "./MenuCarte";
-
-/**
- * Enrichit le menu avec les photos RÉELLEMENT présentes dans public/images/menu.
- * S'exécute au build (page statique) : une photo ajoutée puis redéployée
- * apparaît automatiquement, sans jamais afficher d'image cassée.
- */
-function menuWithPhotos(): MenuCategory[] {
-  const publicDir = path.join(process.cwd(), "public");
-  return MENU.map((cat) => ({
-    ...cat,
-    items: cat.items.map((it) => {
-      if (it.textOnly) return it;
-      const rel = menuImagePath(cat.key, it.name); // .jpg par défaut
-      const abs = path.join(publicDir, rel);
-      if (fs.existsSync(abs)) return { ...it, image: rel };
-      // Essayer d'autres extensions (png, webp)
-      for (const ext of [".png", ".webp"]) {
-        const alt = rel.replace(/\.jpg$/, ext);
-        if (fs.existsSync(path.join(publicDir, alt)))
-          return { ...it, image: alt };
-      }
-      return it;
-    }),
-  }));
-}
+import { RESTAURANT } from "@/lib/data";
+import { menuWithPhotos } from "@/lib/menuPhotos";
+import MenuCarte from "@/components/MenuCarte";
 
 export const metadata: Metadata = {
   title: "La Carte",

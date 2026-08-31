@@ -5,7 +5,17 @@ import { useState } from "react";
 import { Utensils } from "lucide-react";
 import { type MenuCategory, type MenuItem } from "@/lib/data";
 
-export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
+export default function MenuCarte({
+  menu,
+  /** Décalage de la barre d'onglets collante (la navbar de l'accueil fait 88px). */
+  stickyTop = "top-0",
+  /** Nombre de photos chargées en priorité (0 quand la carte est loin sous la ligne de flottaison). */
+  priorityCount = 3,
+}: {
+  menu: MenuCategory[];
+  stickyTop?: string;
+  priorityCount?: number;
+}) {
   const [active, setActive] = useState(menu[0].key);
   const category = menu.find((c) => c.key === active)!;
 
@@ -34,7 +44,7 @@ export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
   return (
     <div>
       {/* Onglets catégories — scroll horizontal sur mobile */}
-      <div className="sticky top-0 z-20 -mx-5 mb-8 bg-ink/85 px-5 py-3 backdrop-blur-md sm:-mx-8 sm:px-8">
+      <div className={`sticky ${stickyTop} z-20 -mx-5 mb-8 bg-ink/85 px-5 py-3 backdrop-blur-md sm:-mx-8 sm:px-8`}>
         <div className="flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {menu.map((c) => (
             <button
@@ -70,9 +80,9 @@ export default function MenuCarte({ menu }: { menu: MenuCategory[] }) {
                           alt={it.name}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          /* Les 3 premières cartes sont au-dessus de la ligne de flottaison :
-                             chargées en priorité, elles évitent un LCP dégradé. */
-                          priority={i < 3}
+                          /* Sur /menu, les premières cartes sont au-dessus de la ligne de
+                             flottaison : chargées en priorité, elles évitent un LCP dégradé. */
+                          priority={i < priorityCount}
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-ink-card/90 via-transparent to-transparent" />

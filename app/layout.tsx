@@ -102,7 +102,9 @@ const jsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${playfair.variable} ${poppins.variable} ${amiri.variable}`}>
-      <body>
+      {/* Les extensions de navigateur (Grammarly, etc.) ajoutent leurs propres
+          attributs sur <body> avant l'hydratation : on ignore l'avertissement. */}
+      <body suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
