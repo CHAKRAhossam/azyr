@@ -19,9 +19,16 @@ function menuWithPhotos(): MenuCategory[] {
     ...cat,
     items: cat.items.map((it) => {
       if (it.textOnly) return it;
-      const rel = menuImagePath(cat.key, it.name);
-      const exists = fs.existsSync(path.join(publicDir, rel));
-      return exists ? { ...it, image: rel } : it;
+      const rel = menuImagePath(cat.key, it.name); // .jpg par défaut
+      const abs = path.join(publicDir, rel);
+      if (fs.existsSync(abs)) return { ...it, image: rel };
+      // Essayer d'autres extensions (png, webp)
+      for (const ext of [".png", ".webp"]) {
+        const alt = rel.replace(/\.jpg$/, ext);
+        if (fs.existsSync(path.join(publicDir, alt)))
+          return { ...it, image: alt };
+      }
+      return it;
     }),
   }));
 }

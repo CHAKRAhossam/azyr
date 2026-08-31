@@ -66,6 +66,12 @@ export const SPECIALTIES: Specialty[] = [
     image: "/images/marocaine/marocaine-1.jpg",
   },
   {
+    key: "boissons-chaudes",
+    title: "Boissons Chaudes",
+    subtitle: "Espressos, cappuccinos, thés & infusions — préparés à la minute",
+    image: "/images/menu/boissons-chaudes/cappuccino.jpg",
+  },
+  {
     key: "boissons-fraiches",
     title: "Boissons Fraîches",
     subtitle: "Jus pressés, citronnades & mojitos rafraîchissants",
